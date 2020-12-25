@@ -7,12 +7,14 @@ navbar:
   right:
     - text: "Home"
       href: index.html
+    - text: "Tables"
+      href: tables.html
     - text: "Documentation"
       menu:
-        - text: "Doc1"
-          href: doc1.html
-        - text: "Doc2"
-          href: doc2.html
+        - text: "Philosophy"
+          href: philosophy.html
+        - text: "Orchestration"
+          href: orchestration.html
     - text: "Examples"
       href: example.html
     - text: "About"
