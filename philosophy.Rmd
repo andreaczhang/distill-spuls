@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Philosophy"
 output: html_document
 # whatever you put, don't put author
 ---

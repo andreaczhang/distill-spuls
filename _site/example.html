@@ -85,9 +85,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Sykdomspulsen: try</title>
+  <title>Sykdomspulsen: Examples</title>
 
-  <meta property="description" itemprop="description" content="attempt"/>
+  <meta property="description" itemprop="description" content="An example"/>
 
 
   <!--  https://schema.org/Article -->
@@ -95,22 +95,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="article:created" itemprop="dateCreated" content="2020-12-23"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Sykdomspulsen: try"/>
+  <meta property="og:title" content="Sykdomspulsen: Examples"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="attempt"/>
+  <meta property="og:description" content="An example"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Sykdomspulsen"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Sykdomspulsen: try"/>
-  <meta property="twitter:description" content="attempt"/>
+  <meta property="twitter:title" content="Sykdomspulsen: Examples"/>
+  <meta property="twitter:description" content="An example"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date"]}},"value":[{"type":"character","attributes":{},"value":["try"]},{"type":"character","attributes":{},"value":["attempt"]},{"type":"character","attributes":{},"value":["12/23/2020"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date"]}},"value":[{"type":"character","attributes":{},"value":["Examples"]},{"type":"character","attributes":{},"value":["An example"]},{"type":"character","attributes":{},"value":["12/23/2020"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2008,7 +2008,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"try","description":"attempt","authors":[],"publishedDate":"2020-12-23T00:00:00.000+00:00"}
+{"title":"Examples","description":"An example","authors":[],"publishedDate":"2020-12-23T00:00:00.000+00:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2020,6 +2020,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="nav-right">
 <a href="index.html">Home</a>
+<a href="tables.html">Tables</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
 Documentation
@@ -2027,8 +2028,8 @@ Documentation
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="doc1.html">Doc1</a>
-<a href="doc2.html">Doc2</a>
+<a href="philosophy.html">Philosophy</a>
+<a href="orchestration.html">Orchestration</a>
 </div>
 </div>
 <a href="example.html">Examples</a>
@@ -2042,32 +2043,191 @@ Documentation
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>try</h1>
+<h1>Examples</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>attempt</p>
+<p>An example</p>
 </div>
 
 
 <div class="d-article">
+<h2 id="weather">Weather</h2>
+<p>We will now work our way through an example implementation of a weather surveillance system.</p>
+<h3 id="database-tableschema">Database table/schema</h3>
+<p>To begin with, we need to create a database table <code>schema</code> that describes the final database table that we will store the information that we will collect.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cars</span><span class='op'>)</span>
+<pre><code><span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/add_schema.html'>add_schema</a></span><span class='op'>(</span>
+  name <span class='op'>=</span> <span class='st'>"example_weather"</span>,
+  schema <span class='op'>=</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/sc/man/Schema.html'>Schema</a></span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>
+    db_config <span class='op'>=</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/sc/man/config.html'>config</a></span><span class='op'>$</span><span class='va'>db_config</span>,
+    db_table <span class='op'>=</span> <span class='st'>"example_weather"</span>,
+    db_field_types <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"granularity_time"</span> <span class='op'>=</span> <span class='st'>"TEXT"</span>,
+      <span class='st'>"granularity_geo"</span> <span class='op'>=</span> <span class='st'>"TEXT"</span>,
+      <span class='st'>"location_code"</span> <span class='op'>=</span> <span class='st'>"TEXT"</span>,
+      <span class='st'>"border"</span> <span class='op'>=</span> <span class='st'>"INTEGER"</span>,
+      <span class='st'>"age"</span> <span class='op'>=</span> <span class='st'>"TEXT"</span>,
+      <span class='st'>"sex"</span> <span class='op'>=</span> <span class='st'>"TEXT"</span>,
+      <span class='st'>"year"</span> <span class='op'>=</span> <span class='st'>"INTEGER"</span>,
+      <span class='st'>"week"</span> <span class='op'>=</span> <span class='st'>"INTEGER"</span>,
+      <span class='st'>"yrwk"</span> <span class='op'>=</span> <span class='st'>"TEXT"</span>,
+      <span class='st'>"season"</span> <span class='op'>=</span> <span class='st'>"TEXT"</span>,
+      <span class='st'>"x"</span> <span class='op'>=</span> <span class='st'>"DOUBLE"</span>,
+      <span class='st'>"date"</span> <span class='op'>=</span> <span class='st'>"DATE"</span>,
+
+      <span class='st'>"tg"</span> <span class='op'>=</span> <span class='st'>"DOUBLE"</span>,
+      <span class='st'>"tx"</span> <span class='op'>=</span> <span class='st'>"DOUBLE"</span>,
+      <span class='st'>"tn"</span> <span class='op'>=</span> <span class='st'>"DOUBLE"</span>,
+      <span class='st'>"rr"</span> <span class='op'>=</span> <span class='st'>"DOUBLE"</span>
+    <span class='op'>)</span>,
+    db_load_folder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>,
+    keys <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"location_code"</span>,
+      <span class='st'>"date"</span>
+    <span class='op'>)</span>,
+    validator_field_types <span class='op'>=</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/sc/man/validator_field_types_sykdomspulsen.html'>validator_field_types_sykdomspulsen</a></span>,
+    validator_field_contents <span class='op'>=</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/sc/man/validator_field_contents_sykdomspulsen.html'>validator_field_contents_sykdomspulsen</a></span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>     speed           dist       
- Min.   : 4.0   Min.   :  2.00  
- 1st Qu.:12.0   1st Qu.: 26.00  
- Median :15.0   Median : 36.00  
- Mean   :15.4   Mean   : 42.98  
- 3rd Qu.:19.0   3rd Qu.: 56.00  
- Max.   :25.0   Max.   :120.00  </code></pre>
 </div>
-<p>write</p>
+<p>This <code>schema</code> has a few main parts.</p>
+<p><code>name</code> is an internal reference that we will use to access this database table at <code>sc::config$schemas$example_weather</code>.</p>
+<p><code>db_config</code> is a list that contains information about the database:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="doc1_files/figure-html5/pressure-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre><code><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>sc</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/sc/man/config.html'>config</a></span><span class='op'>$</span><span class='va'>db_config</span><span class='op'>)</span>
+</code></pre>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+</div>
+<p><code>db_table</code> is the name of the database table in the database.</p>
+<p><code>db_field_types</code> is a vector containing the names and variable types of the columns of the database table.</p>
+<p><code>keys</code> are the columns that will form the primary key of the databse (i.e. identify unique rows).</p>
+<p><code>validator_field_types</code> is a validator that is useful for ensuring that your database table names are consistent with predetermined rules. For example, in Sykdomspulsen we have decided that we always want the first 12 columns to be <code>granularity_time</code>, <code>granularity_geo</code>, <code>location_code</code>, <code>border</code>, <code>age</code>, <code>sex</code>, <code>year</code>, <code>week</code>, <code>yrwk</code>, <code>season</code>, <code>x</code>, <code>date</code>. However, while developing new code we found that it was difficult to force all developers to remember to include these 12 columns in the correct order. The validator <code>sc::validator_field_types_sykdomspulsen</code> ensures that the first 12 columns are as expected, and otherwise the developer will not be able to run their code.</p>
+<p><code>validator_field_contents</code> is a validator that ensures that the contents of your data is correct. We experienced that there were issues with <code>granularity_time</code> sometimes containing the value <code>week</code> and sometimes containing the value <code>weekly</code>. To maintain consistency in our data, the validator <code>sc::validator_field_contents_sykdomspulsen</code> will throw an error if it observes non-accepted values for certain variables.</p>
+<h3 id="task">Task</h3>
+<p>We now need to create a task that will download the data from an API, clean it, and store it in the database schema.</p>
+<p>For simple tasks we can use the convenience function <code>sc::task_from_config</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/add_task.html'>add_task</a></span><span class='op'>(</span>
+  <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/task_from_config.html'>task_from_config</a></span><span class='op'>(</span>
+    name <span class='op'>=</span> <span class='st'>"example_weather"</span>,
+    type <span class='op'>=</span> <span class='st'>"data"</span>,
+    action <span class='op'>=</span> <span class='st'>"example_weather"</span>,
+    schema <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>output <span class='op'>=</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/sc/man/config.html'>config</a></span><span class='op'>$</span><span class='va'>schemas</span><span class='op'>$</span><span class='va'>example_weather</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><code>name</code> is an internal name that we will use to reference the task.</p>
+<p><code>type</code> is one of <code>data</code>, <code>analysis</code>, <code>ui</code>, or <code>single</code>.</p>
+<p><code>action</code> is the function that will be called.</p>
+<p><code>schema</code> is a list containing <code>schema</code>s.</p>
+<h3 id="action">Action</h3>
+<p>We now need to develop the action <code>example_weather</code>. We do this by creating an R function that contains 3 arguments:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='va'>datar_weather</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>argset</span>, <span class='va'>schema</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='co'># sc::tm_run_task("example_weather")</span>
+
+  <span class='kw'>if</span><span class='op'>(</span><span class='fu'>plnr</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/plnr//reference/is_run_directly.html'>is_run_directly</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_data.html'>tm_get_data</a></span><span class='op'>(</span><span class='st'>"example_weather"</span><span class='op'>)</span>
+    <span class='va'>argset</span> <span class='op'>&lt;-</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_argset.html'>tm_get_argset</a></span><span class='op'>(</span><span class='st'>"example_weather"</span><span class='op'>)</span>
+    <span class='va'>schema</span> <span class='op'>&lt;-</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_schema.html'>tm_get_schema</a></span><span class='op'>(</span><span class='st'>"example_weather"</span><span class='op'>)</span>
+  <span class='op'>}</span>
+  
+  <span class='co'># download the forecast for Oslo</span>
+  <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span><span class='op'>(</span><span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"https://api.met.no/weatherapi/locationforecastlts/1.3/?lat=59.9&amp;lon=10.8"</span><span class='op'>)</span>, <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/content_type.html'>content_type_xml</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>$</span><span class='va'>content</span><span class='op'>)</span>
+
+  <span class='va'>baz</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>a</span>, <span class='st'>".//maxTemperature"</span><span class='op'>)</span>
+  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>baz</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>baz</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>parent</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_children.html'>xml_parent</a></span><span class='op'>(</span><span class='va'>baz</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+    <span class='va'>grandparent</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_children.html'>xml_parent</a></span><span class='op'>(</span><span class='va'>parent</span><span class='op'>)</span>
+    <span class='va'>time_from</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_attr.html'>xml_attr</a></span><span class='op'>(</span><span class='va'>grandparent</span>, <span class='st'>"from"</span><span class='op'>)</span>
+    <span class='va'>time_to</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_attr.html'>xml_attr</a></span><span class='op'>(</span><span class='va'>grandparent</span>, <span class='st'>"to"</span><span class='op'>)</span>
+    <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>parent</span>, <span class='st'>".//minTemperature"</span><span class='op'>)</span>
+    <span class='va'>temp_min</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_attr.html'>xml_attr</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"value"</span><span class='op'>)</span>
+    <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>parent</span>, <span class='st'>".//maxTemperature"</span><span class='op'>)</span>
+    <span class='va'>temp_max</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_attr.html'>xml_attr</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"value"</span><span class='op'>)</span>
+    <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>parent</span>, <span class='st'>".//precipitation"</span><span class='op'>)</span>
+    <span class='va'>precip</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_attr.html'>xml_attr</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"value"</span><span class='op'>)</span>
+
+    <span class='va'>res</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+      time_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>time_from</span><span class='op'>)</span>,
+      time_to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>time_to</span><span class='op'>)</span>,
+      tx <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>temp_max</span><span class='op'>)</span>,
+      tn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>temp_min</span><span class='op'>)</span>,
+      rr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>precip</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>}</span>
+  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>rbindlist</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
+  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='va'>res</span><span class='op'>[</span><span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_sub.html'>str_sub</a></span><span class='op'>(</span><span class='va'>time_from</span>, <span class='fl'>12</span>, <span class='fl'>13</span><span class='op'>)</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"00"</span>, <span class='st'>"06"</span>, <span class='st'>"12"</span>, <span class='st'>"18"</span><span class='op'>)</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>date</span> <span class='op'>:=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_sub.html'>str_sub</a></span><span class='op'>(</span><span class='va'>time_from</span>, <span class='fl'>1</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>N</span> <span class='op'>:=</span> <span class='va'>.N</span>, by <span class='op'>=</span> <span class='va'>date</span><span class='op'>]</span>
+  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='va'>res</span><span class='op'>[</span><span class='va'>N</span> <span class='op'>==</span> <span class='fl'>4</span><span class='op'>]</span>
+  <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='va'>res</span><span class='op'>[</span>, <span class='fu'>.</span><span class='op'>(</span>
+    tg <span class='op'>=</span> <span class='cn'>NA</span>,
+    tx <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>tx</span><span class='op'>)</span>,
+    tn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>tn</span><span class='op'>)</span>,
+    rr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>rr</span><span class='op'>)</span>
+  <span class='op'>)</span>,
+  keyby <span class='op'>=</span> <span class='fu'>.</span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>
+  <span class='op'>]</span>
+  
+  <span class='co'># we look at the downloaded data</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
+  
+  <span class='co'># we now need to format it</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>granularity_time</span> <span class='op'>:=</span> <span class='st'>"day"</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>granularity_geo</span> <span class='op'>:=</span> <span class='st'>"county"</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>location_code</span> <span class='op'>:=</span> <span class='st'>"county03"</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>border</span> <span class='op'>:=</span> <span class='fl'>2020</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>age</span> <span class='op'>:=</span> <span class='st'>"total"</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>sex</span> <span class='op'>:=</span> <span class='st'>"total"</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>year</span> <span class='op'>:=</span> <span class='fu'>fhi</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/fhi//reference/isoyear_n.html'>isoyear_n</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>week</span> <span class='op'>:=</span> <span class='fu'>fhi</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/fhi//reference/isoweek_n.html'>isoweek_n</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>yrwk</span> <span class='op'>:=</span> <span class='fu'>fhi</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/fhi//reference/isoyearweek.html'>isoyearweek</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>season</span> <span class='op'>:=</span> <span class='fu'>fhi</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/fhi//reference/season.html'>season</a></span><span class='op'>(</span><span class='va'>yrwk</span><span class='op'>)</span><span class='op'>]</span>
+  <span class='va'>res</span><span class='op'>[</span>, <span class='va'>x</span> <span class='op'>:=</span> <span class='fu'>fhi</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/fhi//reference/x.html'>x</a></span><span class='op'>(</span><span class='va'>week</span><span class='op'>)</span><span class='op'>]</span>
+  
+  <span class='co'># upload it to the database</span>
+  <span class='va'>schema</span><span class='op'>$</span><span class='va'>output</span><span class='op'>$</span><span class='fu'>db_upsert_load_data_infile</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<p>It is important to pay attention to the lines at the top of the function:</p>
+<pre><code>if(plnr::is_run_directly()){
+  data &lt;- sc::tm_get_data(&quot;example_weather&quot;)
+  argset &lt;- sc::tm_get_argset(&quot;example_weather&quot;)
+  schema &lt;- sc::tm_get_schema(&quot;example_weather&quot;)
+}</code></pre>
+<p>These lines allow a person to run the code interactively from directly inside the function, without running any prior “setup” code. This means that if a person wants to develop or debug a particular task, they can work directly inside that task, without “going to file X, running lines A, B, C, going to file Y, running lines D, E, F, …”. Instead, they can treat the task function like an independent R script.</p>
+<p>This has large benefits, as it means that:</p>
+<ul>
+<li>more advanced R programmers can work with the broader “infrastructure” (setting up database schema, tasks)</li>
+<li>less-advanced R programmers can work within a task that has already been set up (e.g. modifying it as if it were a simple independent R script)</li>
+</ul>
+<p>This means that resources can be used most effectively, with advanced programmers working on the difficult tasks, with less-advanced programmers assisting in areas where they can (without the need for them to understand the more complicated aspects)</p>
+<h3 id="running-the-task">Running the task</h3>
+<p>The following command is used to run the task from within R:</p>
+<pre><code>sc::tm_run_task(&quot;example_data&quot;)</code></pre>
+<h3 id="accessing-the-data">Accessing the data</h3>
+<p>We can easily access data from the database via the helper function <code>sc::tbl</code> and subsequent dplyr (<a href="https://dplyr.tidyverse.org/" class="uri">https://dplyr.tidyverse.org/</a>) functions:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre><code><span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tbl.html'>tbl</a></span><span class='op'>(</span><span class='st'>"example_weather"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/compute.html'>collect</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

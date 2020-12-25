@@ -1,15 +1,10 @@
 ---
 title: "Sykdomspulsen"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  The Norwegian syndromic surveillance system (TEMPORARY)
 site: distill::distill_website
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-```
+Sykdomspulsen is a free and open-source health surveillance system. This website contains technical documentation of the infrastructure and statistical methods used in Sykdomspulsen.
 
